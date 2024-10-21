@@ -11,7 +11,14 @@ function add(numbers) {
         numbers = numbers.replace(/\n/g, ",");
     }
 
-    return numbers.split(",").reduce((sum, num) => sum + parseInt(num), 0);
+    const nums = numbers.split(",");
+    const negatives = nums.filter(num => parseInt(num) < 0);
+
+    if (negatives.length > 0) {
+        throw new Error(`negative numbers not allowed ${negatives.join(', ')}`);
+    }
+
+    return nums.reduce((sum, num) => sum + parseInt(num), 0);
 }
 
 module.exports = { add };
