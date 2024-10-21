@@ -3,8 +3,14 @@ function add(numbers) {
         return 0;
     }
 
-    // Replace new lines with commas
-    numbers = numbers.replace(/\n/g, ",");
+    if (numbers.startsWith("//")) {
+        const parts = numbers.split("\n");
+        const delimiter = parts[0].slice(2);
+        numbers = parts[1].replace(new RegExp(delimiter, 'g'), ",");
+    } else {
+        numbers = numbers.replace(/\n/g, ",");
+    }
+
     return numbers.split(",").reduce((sum, num) => sum + parseInt(num), 0);
 }
 
